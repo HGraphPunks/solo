@@ -42,7 +42,6 @@ import {HelpRenderer} from '../help-renderer.js';
 import {PathEx} from '../../business/utils/path-ex.js';
 import {ConfigKeyFormatter} from '../../data/key/config-key-formatter.js';
 import {AccountCommand} from '../../commands/account.js';
-import {FileCommand} from '../../commands/file.js';
 import {DeploymentCommand} from '../../commands/deployment.js';
 import {ExplorerCommand} from '../../commands/explorer.js';
 import {InitCommand} from '../../commands/init/init.js';
@@ -144,7 +143,6 @@ export class Container {
       new SingletonContainer(InjectTokens.HelpRenderer, HelpRenderer),
       new SingletonContainer(InjectTokens.ConfigProvider, LayeredConfigProvider),
       new SingletonContainer(InjectTokens.AccountCommand, AccountCommand),
-      new SingletonContainer(InjectTokens.FileCommand, FileCommand),
       new SingletonContainer(InjectTokens.ClusterCommand, ClusterCommand),
       new SingletonContainer(InjectTokens.NodeCommand, NodeCommand),
       new SingletonContainer(InjectTokens.DeploymentCommand, DeploymentCommand),

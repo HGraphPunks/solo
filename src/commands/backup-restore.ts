@@ -194,7 +194,7 @@ export class BackupRestoreCommand extends BaseCommand {
     const contexts: Context[] = this.remoteConfig.getContexts();
     const consensusNodes: ConsensusNode[] = this.remoteConfig.getConsensusNodes();
 
-    const tasks: Listr<BackupContext, any, any> = new Listr(
+    const tasks = new Listr<BackupContext>(
       [
         {
           title: 'Export ConfigMaps',
@@ -235,7 +235,10 @@ export class BackupRestoreCommand extends BaseCommand {
           },
         },
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
     );
 
     try {
@@ -466,7 +469,7 @@ export class BackupRestoreCommand extends BaseCommand {
       config: any;
     }
 
-    const tasks: Listr<RestoreContext, any, any> = new Listr(
+    const tasks = new Listr<RestoreContext>(
       [
         {
           title: 'Initialize restore configuration',
@@ -521,7 +524,10 @@ export class BackupRestoreCommand extends BaseCommand {
         },
         this.nodeCommandTasks.uploadStateFiles(false, inputDirectory),
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
     );
 
     try {

@@ -622,7 +622,10 @@ export class ExplorerCommand extends BaseCommand {
         //   },
         // },
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
       undefined,
       'explorer node add',
     );
@@ -712,7 +715,10 @@ export class ExplorerCommand extends BaseCommand {
         this.checkExplorerIngressControllerPodIsReadyTask(),
         this.enablePortForwardingTask(),
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
       undefined,
       'explorer node upgrade',
     );
@@ -815,7 +821,10 @@ export class ExplorerCommand extends BaseCommand {
         },
         this.disableMirrorNodeExplorerComponents(),
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
       undefined,
       'explorer node destroy',
     );

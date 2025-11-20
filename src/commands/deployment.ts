@@ -158,7 +158,10 @@ export class DeploymentCommand extends BaseCommand {
           },
         },
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
       undefined,
       'deployment config create',
     );
@@ -260,7 +263,10 @@ export class DeploymentCommand extends BaseCommand {
           },
         },
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
       undefined,
       'deployment config delete',
     );
@@ -292,7 +298,10 @@ export class DeploymentCommand extends BaseCommand {
         self.addClusterRefToDeployments(),
         self.createOrEditRemoteConfigForNewDeployment(argv),
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
       undefined,
       'deployment cluster attach',
     );
@@ -319,7 +328,7 @@ export class DeploymentCommand extends BaseCommand {
       config: Config;
     }
 
-    const tasks: Listr<Context, any, any> = new Listr(
+    const tasks = new Listr<Context>(
       [
         {
           title: 'Initialize',
@@ -358,7 +367,10 @@ export class DeploymentCommand extends BaseCommand {
           },
         },
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
     );
 
     try {

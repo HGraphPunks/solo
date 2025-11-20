@@ -4,13 +4,7 @@ import {afterEach, describe} from 'mocha';
 import {expect} from 'chai';
 
 import {Flags as flags} from '../../../src/commands/flags.js';
-import {
-  deployNetworkTest,
-  destroyEnabled,
-  endToEndTestSuite,
-  getTestCluster,
-  startNodesTest,
-} from '../../test-utility.js';
+import {deployNetworkTest, endToEndTestSuite, getTestCluster, startNodesTest} from '../../test-utility.js';
 import * as version from '../../../version.js';
 import {sleep} from '../../../src/core/helpers.js';
 import {Duration} from '../../../src/core/time/duration.js';
@@ -49,10 +43,11 @@ argv.setArg(flags.clusterRef, clusterReference);
 argv.setArg(flags.soloChartVersion, version.SOLO_CHART_VERSION);
 argv.setArg(flags.force, true);
 
-endToEndTestSuite(testName, argv, {startNodes: false, deployNetwork: false}, (bootstrapResp): void => {
+endToEndTestSuite(testName, argv, {startNodes: false, deployNetwork: false}, bootstrapResp => {
   describe('BlockNodeCommand', async (): Promise<void> => {
     const {
-      opts: {k8Factory, commandInvoker, remoteConfig, configManager},
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars,unused-imports/no-unused-vars
+      opts: {k8Factory, commandInvoker, remoteConfig, configManager, logger},
       cmd: {nodeCmd, networkCmd},
     } = bootstrapResp;
 
@@ -90,7 +85,7 @@ endToEndTestSuite(testName, argv, {startNodes: false, deployNetwork: false}, (bo
         command: BlockCommandDefinition.COMMAND_NAME,
         subcommand: BlockCommandDefinition.NODE_SUBCOMMAND_NAME,
         action: BlockCommandDefinition.NODE_ADD,
-        callback: async (argv): Promise<boolean> => blockNodeCommand.add(argv),
+        callback: async (argv: {_: string[]} & Record<string, any>): Promise<boolean> => blockNodeCommand.add(argv),
       });
 
       remoteConfig.configuration.components.getComponent<BlockNodeStateSchema>(ComponentTypes.BlockNode, 1);
@@ -127,10 +122,6 @@ endToEndTestSuite(testName, argv, {startNodes: false, deployNetwork: false}, (bo
     });
 
     it("Should succeed with removing block node with 'destroy' command", async function (): Promise<void> {
-      if (!destroyEnabled()) {
-        this.skip();
-      }
-
       this.timeout(Duration.ofMinutes(2).toMillis());
 
       configManager.reset();
@@ -140,7 +131,7 @@ endToEndTestSuite(testName, argv, {startNodes: false, deployNetwork: false}, (bo
         command: BlockCommandDefinition.COMMAND_NAME,
         subcommand: BlockCommandDefinition.NODE_SUBCOMMAND_NAME,
         action: BlockCommandDefinition.NODE_DESTROY,
-        callback: async (argv): Promise<boolean> => blockNodeCommand.destroy(argv),
+        callback: async (argv: {_: string[]} & Record<string, any>): Promise<boolean> => blockNodeCommand.destroy(argv),
       });
 
       try {

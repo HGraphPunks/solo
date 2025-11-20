@@ -211,9 +211,6 @@ export const NODE_LOG_FAILURE_MSG = 'failed to download logs from pod';
 export const ONE_SHOT_WITH_BLOCK_NODE = getEnvironmentVariable('ONE_SHOT_WITH_BLOCK_NODE') || 'false';
 export const RAPID_FIRE_VALUES_FILE = PathEx.joinWithRealPath(RESOURCES_DIR, 'rapid-fire', 'nlg-values.yaml');
 
-export const CONTAINER_COPY_MAX_ATTEMPTS: number = +getEnvironmentVariable('CONTAINER_COPY_MAX_ATTEMPTS') || 3;
-export const CONTAINER_COPY_BACKOFF_MS: number = +getEnvironmentVariable('CONTAINER_COPY_BACKOFF_MS') || 300;
-
 /**
  * Listr related
  * @returns a object that defines the default color options
@@ -230,21 +227,7 @@ export const LISTR_DEFAULT_RENDERER_TIMER_OPTION = {
   },
 };
 
-export const LISTR_DEFAULT_RENDERER_OPTION: {
-  collapseSubtasks: boolean;
-  timer: {
-    condition: (duration: number) => boolean;
-    format: (duration: number) => any;
-    field: string | ((arguments_0: number) => string);
-    args?: [number];
-  };
-  logger?: ListrLogger;
-  persistentOutput: boolean;
-  clearOutput: boolean;
-  collapseErrors: boolean;
-  showErrorMessage: boolean;
-  formatOutput: 'wrap' | 'truncate';
-} = {
+export const LISTR_DEFAULT_RENDERER_OPTION = {
   collapseSubtasks: false,
   timer: LISTR_DEFAULT_RENDERER_TIMER_OPTION,
   persistentOutput: true,
@@ -252,34 +235,20 @@ export const LISTR_DEFAULT_RENDERER_OPTION: {
   collapseErrors: false,
   showErrorMessage: false,
   formatOutput: 'wrap',
-};
-
-type ListrOptionsType = {
-  concurrent: boolean;
-  rendererOptions: typeof LISTR_DEFAULT_RENDERER_OPTION;
-  fallbackRendererOptions: {
-    timer: typeof LISTR_DEFAULT_RENDERER_TIMER_OPTION;
+} as {
+  collapseSubtasks: boolean;
+  timer: {
+    condition: (duration: number) => boolean;
+    format: (duration: number) => any;
+    field: string | ((arguments_0: number) => string);
+    args?: [number];
   };
-};
-
-export const LISTR_DEFAULT_OPTIONS: {
-  DEFAULT: ListrOptionsType;
-  WITH_CONCURRENCY: ListrOptionsType;
-} = {
-  DEFAULT: {
-    concurrent: false,
-    rendererOptions: LISTR_DEFAULT_RENDERER_OPTION,
-    fallbackRendererOptions: {
-      timer: LISTR_DEFAULT_RENDERER_TIMER_OPTION,
-    },
-  },
-  WITH_CONCURRENCY: {
-    concurrent: true,
-    rendererOptions: LISTR_DEFAULT_RENDERER_OPTION,
-    fallbackRendererOptions: {
-      timer: LISTR_DEFAULT_RENDERER_TIMER_OPTION,
-    },
-  },
+  logger: ListrLogger;
+  persistentOutput: boolean;
+  clearOutput: boolean;
+  collapseErrors: boolean;
+  showErrorMessage: boolean;
+  formatOutput: 'wrap' | 'truncate';
 };
 
 export const SIGNING_KEY_PREFIX = 's';
@@ -375,9 +344,6 @@ export const MINIO_SECRET_NAME = 'minio-secrets';
 export const BACKUP_SECRET_NAME = 'backup-uploader-secrets';
 export const MIRROR_INGRESS_TLS_SECRET_NAME = 'ca-secret-mirror-node';
 export const EXPLORER_INGRESS_TLS_SECRET_NAME = 'ca-secret-hiero-explorer';
-
-export const BLOCK_STREAM_STREAM_MODE: string = getEnvironmentVariable('BLOCK_STREAM_STREAM_MODE') || 'BOTH';
-export const BLOCK_STREAM_WRITER_MODE: string = getEnvironmentVariable('BLOCK_STREAM_WRITER_MODE') || 'FILE_AND_GRPC';
 
 export const BLOCK_NODE_IMAGE_NAME: string = 'block-node-server';
 export const BLOCK_NODES_JSON_FILE: string = 'block-nodes.json';

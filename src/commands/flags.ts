@@ -396,7 +396,7 @@ export class Flags {
     name: 'prometheus-stack',
     definition: {
       describe: 'Deploy prometheus stack',
-      defaultValue: false,
+      defaultValue: true,
       type: 'boolean',
     },
     prompt: async function promptDeployPrometheusStack(
@@ -1456,46 +1456,6 @@ export class Flags {
         'Enter the account id: ',
         null,
         Flags.accountId.name,
-      );
-    },
-  };
-
-  public static readonly fileId: CommandFlag = {
-    constName: 'fileId',
-    name: 'file-id',
-    definition: {
-      describe: 'The network file id, e.g.: 0.0.150',
-      defaultValue: '',
-      type: 'string',
-    },
-    prompt: async function promptFileId(task: SoloListrTaskWrapper<AnyListrContext>, input: string): Promise<string> {
-      return await Flags.promptText(
-        task,
-        input,
-        Flags.fileId.definition.defaultValue as string,
-        'Enter the file id: ',
-        'File ID cannot be empty',
-        Flags.fileId.name,
-      );
-    },
-  };
-
-  public static readonly filePath: CommandFlag = {
-    constName: 'filePath',
-    name: 'file-path',
-    definition: {
-      describe: 'Local path to the file to upload',
-      defaultValue: '',
-      type: 'string',
-    },
-    prompt: async function promptFilePath(task: SoloListrTaskWrapper<AnyListrContext>, input: string): Promise<string> {
-      return await Flags.promptText(
-        task,
-        input,
-        Flags.filePath.definition.defaultValue as string,
-        'Enter the file path: ',
-        'File path cannot be empty',
-        Flags.filePath.name,
       );
     },
   };
@@ -2665,28 +2625,6 @@ export class Flags {
 
   // --------------- Rapid Fire --------------- //
 
-  public static readonly performanceTest: CommandFlag = {
-    constName: 'performanceTest',
-    name: 'test',
-    definition: {
-      describe: 'The class name of the Performance Test to run',
-      type: 'string',
-      defaultValue: '',
-    },
-    prompt: undefined,
-  };
-
-  public static readonly packageName: CommandFlag = {
-    constName: 'packageName',
-    name: 'package',
-    definition: {
-      describe: 'The package name of the Performance Test to run. Defaults to ',
-      type: 'string',
-      defaultValue: 'com.hedera.benchmark',
-    },
-    prompt: undefined,
-  };
-
   public static readonly nlgArguments: CommandFlag = {
     constName: 'nlgArguments',
     name: 'args',
@@ -2713,8 +2651,6 @@ export class Flags {
 
   public static readonly allFlags: CommandFlag[] = [
     Flags.accountId,
-    Flags.fileId,
-    Flags.filePath,
     Flags.adminKey,
     Flags.adminPublicKeys,
     Flags.amount,
@@ -2863,8 +2799,6 @@ export class Flags {
     Flags.podLog,
     Flags.nlgArguments,
     Flags.javaHeap,
-    Flags.performanceTest,
-    Flags.packageName,
   ];
 
   /** Resets the definition.disablePrompt for all flags */

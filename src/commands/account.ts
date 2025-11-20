@@ -250,7 +250,7 @@ export class AccountCommand extends BaseCommand {
       };
     }
 
-    const tasks: Listr<Context, any, any> = new Listr(
+    const tasks: Listr<Context> = new Listr<Context>(
       [
         {
           title: 'Initialize',
@@ -445,7 +445,10 @@ export class AccountCommand extends BaseCommand {
           },
         },
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
     );
 
     try {
@@ -484,7 +487,7 @@ export class AccountCommand extends BaseCommand {
       privateKey: PrivateKey;
     }
 
-    const tasks: Listr<Context, any, any> = new Listr(
+    const tasks = new Listr<Context>(
       [
         {
           title: 'Initialize',
@@ -564,7 +567,10 @@ export class AccountCommand extends BaseCommand {
           },
         },
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
     );
 
     try {
@@ -581,7 +587,7 @@ export class AccountCommand extends BaseCommand {
   public async update(argv: ArgvStruct): Promise<boolean> {
     const self = this;
 
-    const tasks: Listr<UpdateAccountContext, any, any> = new Listr(
+    const tasks = new Listr<UpdateAccountContext>(
       [
         {
           title: 'Initialize',
@@ -655,7 +661,10 @@ export class AccountCommand extends BaseCommand {
           },
         },
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
     );
 
     try {
@@ -685,7 +694,7 @@ export class AccountCommand extends BaseCommand {
       config: Config;
     }
 
-    const tasks: Listr<Context, any, any> = new Listr(
+    const tasks = new Listr<Context>(
       [
         {
           title: 'Initialize',
@@ -738,7 +747,10 @@ export class AccountCommand extends BaseCommand {
           },
         },
       ],
-      constants.LISTR_DEFAULT_OPTIONS.DEFAULT,
+      {
+        concurrent: false,
+        rendererOptions: constants.LISTR_DEFAULT_RENDERER_OPTION,
+      },
     );
 
     try {

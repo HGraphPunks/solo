@@ -32,7 +32,6 @@ import {K8ClientCRDs} from './resources/crd/k8-clinet-crds.js';
 import {KubeConfig} from '@kubernetes/client-node';
 import {MissingActiveClusterError} from '../errors/missing-active-cluster-error.js';
 import {MissingActiveContextError} from '../errors/missing-active-context-error.js';
-import {type Optional} from '../../../types/index.js';
 
 /**
  * A kubernetes API wrapper class providing custom functionalities required by solo
@@ -66,12 +65,12 @@ export class K8Client implements K8 {
    * Create a new k8Factory client for the given context, if context is undefined it will use the current context in kubeconfig
    * @param context - The context to create the k8Factory client for
    */
-  public constructor(private readonly context: string) {
+  constructor(private readonly context: string) {
     this.init(this.context);
   }
 
   // TODO make private, but first we need to require a cluster to be set and address the test cases using this
-  public init(context: Optional<string> = undefined): K8 {
+  init(context: string = undefined): K8 {
     this.kubeConfig = this.getKubeConfig(context);
 
     if (!this.kubeConfig.getCurrentContext()) {
